@@ -5,10 +5,14 @@ import cv2 as cv
 def nothing(x):
     print(x)
 
+
+# Select Image Once
+image_name = 'Headshot.jpg'
+#image_name = 'xcolours.png'
+#image_name = 'colour-wheel.jpg'
+
 cv.namedWindow('image')
-img = cv.imread('Headshot.jpg')
-#img = cv.imread('xcolours.png')
-#img = cv.imread('colour-wheel.jpg')
+img = cv.imread(image_name)
 width, height, _ = img.shape
 print(width, height)
 
@@ -25,6 +29,15 @@ coral2 = (115, 115, 255)
 red = (85, 85, 255)
 red2 = (40, 40, 234)
 maroon = (12, 12, 181)
+
+# Oranges
+cream = (205, 249, 255)
+cream2 = (167, 245, 255)
+tan = (133, 241, 255)
+tan2 = (63, 233, 255)
+brown = (8, 226, 255)
+brown2 = (0, 207, 235)
+brown3 = (0, 188, 213)
 
 # Greens
 mint = (206, 255, 206)
@@ -80,6 +93,29 @@ r6 = cv.rectangle(r6, (0,0), (height, width), red2, -1)
 r7 = np.zeros([width,height,3], np.uint8)
 r7 = cv.rectangle(r7, (0,0), (height, width), maroon, -1)
 
+# ORANGES ///////////////////////////////////////
+# cream
+o1 = np.zeros([width,height,3], np.uint8)
+o1 = cv.rectangle(o1, (0,0), (height, width), cream, -1)
+# pink2
+o2 = np.zeros([width,height,3], np.uint8)
+o2 = cv.rectangle(o2, (0,0), (height, width), cream2, -1)
+# coral
+o3 = np.zeros([width,height,3], np.uint8)
+o3 = cv.rectangle(o3, (0,0), (height, width), tan, -1)
+# coral2
+o4 = np.zeros([width,height,3], np.uint8)
+o4 = cv.rectangle(o4, (0,0), (height, width), tan2, -1)
+# red
+o5 = np.zeros([width,height,3], np.uint8)
+o5 = cv.rectangle(o5, (0,0), (height, width), brown, -1)
+# red2
+o6 = np.zeros([width,height,3], np.uint8)
+o6 = cv.rectangle(o6, (0,0), (height, width), brown2, -1)
+# maroon
+o7 = np.zeros([width,height,3], np.uint8)
+o7 = cv.rectangle(o7, (0,0), (height, width), brown3, -1)
+
 # GREENS ///////////////////////////////////////
 # mint
 g1 = np.zeros([width,height,3], np.uint8)
@@ -127,9 +163,7 @@ b7 = np.zeros([width,height,3], np.uint8)
 b7 = cv.rectangle(b7, (0,0), (height, width), navy2, -1)
 
 while(1):
-    img = cv.imread('Headshot.jpg')
-    #img = cv.imread('xcolours.png')
-    #img = cv.imread('colour-wheel.jpg')
+    img = cv.imread(image_name)
 
     # Read tracker positions
     LV1 = cv.getTrackbarPos('Thresh 1','Tracking')
@@ -142,12 +176,12 @@ while(1):
 
     '''
     # Hardcoded for Testing
-    LV1 = 243
-    LV2 = 216
-    LV3 = 183
-    LV4 = 151
-    LV5 = 130
-    LV6 = 111
+    LV1 = 250
+    LV2 = 246
+    LV3 = 244
+    LV4 = 232
+    LV5 = 230
+    LV6 = 221
     LV7 = 42
     '''
     
@@ -155,22 +189,22 @@ while(1):
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
 
-    # HUES - R0:30, G31:90,  B91:150, R151:179
+    # HUES - R0:14, O15-30 G31:90,  B91:150, R151:179
     # Red LOW H
     rLow1 = np.array([0, LOW, LV1+1])
-    rUp1 = np.array([30, HIGH, HIGH])
+    rUp1 = np.array([14, HIGH, HIGH])
     rLow2 = np.array([0, LOW, LV2+1])
-    rUp2 = np.array([30, HIGH, LV1])
+    rUp2 = np.array([14, HIGH, LV1])
     rLow3 = np.array([0, LOW, LV3+1])
-    rUp3 = np.array([30, HIGH, LV2])
+    rUp3 = np.array([14, HIGH, LV2])
     rLow4 = np.array([0, LOW, LV4+1])
-    rUp4 = np.array([30, HIGH, LV3])
+    rUp4 = np.array([14, HIGH, LV3])
     rLow5 = np.array([0, LOW, LV5+1])
-    rUp5 = np.array([30, HIGH, LV4])
+    rUp5 = np.array([14, HIGH, LV4])
     rLow6 = np.array([0, LOW, LV6+1])
-    rUp6 = np.array([30, HIGH, LV5])
+    rUp6 = np.array([14, HIGH, LV5])
     rLow7 = np.array([0, LOW, LV7+1])
-    rUp7 = np.array([30, HIGH, LV6])
+    rUp7 = np.array([14, HIGH, LV6])
 
     # Red HIGH H
     r2Low1 = np.array([151, LOW, LV1+1])
@@ -187,6 +221,22 @@ while(1):
     r2Up6 = np.array([179, HIGH, LV5])
     r2Low7 = np.array([151, LOW, LV7+1])
     r2Up7 = np.array([179, HIGH, LV6])
+
+    # Orange
+    oLow1 = np.array([15, LOW, LV1+1])
+    oUp1 = np.array([30, HIGH, HIGH])
+    oLow2 = np.array([15, LOW, LV2+1])
+    oUp2 = np.array([30, HIGH, LV1])
+    oLow3 = np.array([15, LOW, LV3+1])
+    oUp3 = np.array([30, HIGH, LV2])
+    oLow4 = np.array([15, LOW, LV4+1])
+    oUp4 = np.array([30, HIGH, LV3])
+    oLow5 = np.array([15, LOW, LV5+1])
+    oUp5 = np.array([30, HIGH, LV4])
+    oLow6 = np.array([15, LOW, LV6+1])
+    oUp6 = np.array([30, HIGH, LV5])
+    oLow7 = np.array([15, LOW, LV7+1])
+    oUp7 = np.array([30, HIGH, LV6])
 
     # Green
     gLow1 = np.array([31, LOW, LV1+1])
@@ -226,6 +276,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low1, r2Up1)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red1_mask = cv.bitwise_and(r1,r1,mask = redmask)
+    omask = cv.inRange(hsv, oLow1, oUp1)
+    orange1_mask = cv.bitwise_and(o1,o1,mask = omask)
     bmask = cv.inRange(hsv, bLow1, bUp1)
     blue1_mask = cv.bitwise_and(b1,b1,mask = bmask)
     gmask = cv.inRange(hsv, gLow1, gUp1)
@@ -236,6 +288,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low2, r2Up2)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red2_mask = cv.bitwise_and(r2,r2,mask = redmask)
+    omask = cv.inRange(hsv, oLow2, oUp2)
+    orange2_mask = cv.bitwise_and(o2,o2,mask = omask)
     bmask = cv.inRange(hsv, bLow2, bUp2)
     blue2_mask = cv.bitwise_and(b2,b2,mask = bmask)
     gmask = cv.inRange(hsv, gLow2, gUp2)
@@ -246,6 +300,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low3, r2Up3)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red3_mask = cv.bitwise_and(r3,r3,mask = redmask)
+    omask = cv.inRange(hsv, oLow3, oUp3)
+    orange3_mask = cv.bitwise_and(o3,o3,mask = omask)
     bmask = cv.inRange(hsv, bLow3, bUp3)
     blue3_mask = cv.bitwise_and(b3,b3,mask = bmask)
     gmask = cv.inRange(hsv, gLow3, gUp3)
@@ -256,6 +312,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low4, r2Up4)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red4_mask = cv.bitwise_and(r4,r4,mask = redmask)
+    omask = cv.inRange(hsv, oLow4, oUp4)
+    orange4_mask = cv.bitwise_and(o4,o4,mask = omask)
     bmask = cv.inRange(hsv, bLow4, bUp4)
     blue4_mask = cv.bitwise_and(b4,b4,mask = bmask)
     gmask = cv.inRange(hsv, gLow4, gUp4)
@@ -266,6 +324,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low5, r2Up5)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red5_mask = cv.bitwise_and(r5,r5,mask = redmask)
+    omask = cv.inRange(hsv, oLow5, oUp5)
+    orange5_mask = cv.bitwise_and(o5,o5,mask = omask)
     bmask = cv.inRange(hsv, bLow5, bUp5)
     blue5_mask = cv.bitwise_and(b5,b5,mask = bmask)
     gmask = cv.inRange(hsv, gLow5, gUp5)
@@ -276,6 +336,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low6, r2Up6)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red6_mask = cv.bitwise_and(r6,r6,mask = redmask)
+    omask = cv.inRange(hsv, oLow6, oUp6)
+    orange6_mask = cv.bitwise_and(o6,o6,mask = omask)
     bmask = cv.inRange(hsv, bLow6, bUp6)
     blue6_mask = cv.bitwise_and(b6,b6,mask = bmask)
     gmask = cv.inRange(hsv, gLow6, gUp6)
@@ -286,6 +348,8 @@ while(1):
     r2mask = cv.inRange(hsv, r2Low7, r2Up7)
     redmask = cv.addWeighted(rmask,1,r2mask,1,0)
     red7_mask = cv.bitwise_and(r7,r7,mask = redmask)
+    omask = cv.inRange(hsv, oLow7, oUp7)
+    orange7_mask = cv.bitwise_and(o7,o7,mask = omask)
     bmask = cv.inRange(hsv, bLow7, bUp7)
     blue7_mask = cv.bitwise_and(b7,b7,mask = bmask)
     gmask = cv.inRange(hsv, gLow7, gUp7)
@@ -311,7 +375,18 @@ while(1):
     C2 = cv.addWeighted(B2,1,B3,1,0)
     C3 = cv.addWeighted(B4,1,B5,1,0)
     D1 = cv.addWeighted(C1,1,C2,1,0)
-    final_mask = cv.addWeighted(C3,1,D1,1,0)
+    E1 = cv.addWeighted(orange1_mask,1,orange2_mask,1,0)
+    E2 = cv.addWeighted(orange3_mask,1,orange4_mask,1,0)
+    E3 = cv.addWeighted(orange5_mask,1,orange6_mask,1,0)
+    E4 = cv.addWeighted(orange7_mask,1,E1,1,0)
+    E5 = cv.addWeighted(E2,1,E3,1,0)
+    E6 = cv.addWeighted(E4,1,E5,1,0)
+    E7 = cv.addWeighted(E6,1,C3,1,0)
+    final_mask = cv.addWeighted(E7,1,D1,1,0)
+    
+
+    
+    #final_mask = cv.addWeighted(C3,1,D1,1,0)
     
     cv.imshow('FINAL', final_mask)
     
